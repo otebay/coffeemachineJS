@@ -1,0 +1,73 @@
+type: remote_edu
+files:
+- name: main.js
+  visible: true
+  text: |-
+    const input = require('sync-input');
+    let UserWater = 200;
+    let UserMilk = 50;
+    let UserBeans = 15;
+
+    function dialogue() {
+        console.log("Write how many ml of water the coffee machine has:");
+        let water = Number(input());
+        console.log("Write how many ml of milk the coffee machine has:");
+        let milk = Number(input());
+        console.log("Write how many grams of coffee beans the coffee machine has:");
+        let beans = Number(input());
+        console.log("Write how many cups of coffee you will need:");
+        let CupsCoffee = Number(input());
+        // UserWater *= CupsCoffee;
+        // UserMilk *= CupsCoffee;
+        // UserBeans *= CupsCoffee;
+
+        // let NewWater = water/UserWater;
+        // let NewMilk = milk/UserMilk;
+        // let NewBeans = beans/UserBeans;
+
+        if (UserWater*CupsCoffee <= water && UserMilk*CupsCoffee <= milk && UserBeans*CupsCoffee <= beans) {
+            let maxCups = Math.min(Math.floor(water / UserWater), Math.floor(milk / UserMilk), Math.floor(beans / UserBeans));
+            if (maxCups === CupsCoffee){
+                console.log("Yes, I can make that amount of coffee");
+
+            }
+            else {
+                console.log(`Yes, I can make that amount of coffee (and even ${maxCups-CupsCoffee} more than that)`);
+
+            }
+
+
+        }else{
+            let maxCups = Math.min(Math.floor(water / UserWater), Math.floor(milk / UserMilk), Math.floor(beans / UserBeans));
+            console.log("No, I can make only " + maxCups + " cups of coffee");
+        }
+    }
+    dialogue();
+  learner_created: false
+- name: tests.py
+  visible: false
+  text: |
+    from hstest import *
+
+
+    class CoffeeMachineTest(StageTest):
+        @dynamic_test
+        def empty_test(self):
+            p = TestedProgram()
+            p.start()
+            if p.is_finished():
+                return wrong("Your program should not terminate "
+                             "immediately after starting")
+            return correct()
+
+
+    if __name__ == '__main__':
+        CoffeeMachineTest().run_tests()
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/17041#comment
+check_profile: hyperskill_node_javascript
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Sat, 11 Feb 2023 10:23:49 UTC"
+record: -1
